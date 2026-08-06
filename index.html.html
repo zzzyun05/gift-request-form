@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>永耀國際｜贈品採購需求單</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FAF6F1;
+    --card: #FFFFFF;
+    --card-soft: #F5F0E8;
+    --border: #E8E0D3;
+    --text: #4A4238;
+    --text-soft: #8B8177;
+    --rose: #C39C97;
+    --rose-soft: #EFE0DD;
+    --sage: #9DAE94;
+    --sage-soft: #E4EBE0;
+    --sand: #D3B889;
+    --sand-soft: #F3EAD8;
+    --terracotta: #C88D75;
+    --terracotta-soft: #F3E1D6;
+    --shadow: 0 2px 10px rgba(74,66,56,0.06);
+    --shadow-lg: 0 8px 28px rgba(74,66,56,0.10);
+    --radius: 14px;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3, .display{
+    font-family: 'Noto Serif TC', serif;
+  }
+  .wrap{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.top{
+    text-align:center;
+    margin-bottom: 28px;
+  }
+  header.top .eyebrow{
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--rose);
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  header.top h1{
+    font-size: 26px;
+    font-weight: 600;
+    margin: 6px 0 8px;
+    color: var(--text);
+  }
+  header.top .dept-line{
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    color: var(--text-soft);
+    margin-bottom: 14px;
+    font-family: 'Noto Sans TC', sans-serif;
+  }
+  header.top p{
+    color: var(--text-soft);
+    font-size: 13.5px;
+    margin: 0;
+  }
+
+  .tabs{
+    display:flex;
+    gap: 8px;
+    justify-content:center;
+    margin-bottom: 28px;
+  }
+  .tab-btn{
+    border:none;
+    background: var(--card-soft);
+    color: var(--text-soft);
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor:pointer;
+    transition: all 0.2s ease;
+  }
+  .tab-btn.active{
+    background: var(--rose);
+    color: #fff;
+    box-shadow: var(--shadow);
+  }
+
+  .view{ display:none; }
+  .view.active{ display:block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn{ from{opacity:0; transform: translateY(6px);} to{opacity:1; transform:none;} }
+
+  .card{
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 26px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+  .card h2{
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 4px;
+    display:flex;
+    align-items:center;
+    gap: 8px;
+  }
+  .card h2 .dot{
+    width: 7px; height:7px; border-radius:50%;
+    background: var(--rose);
+    display:inline-block;
+  }
+  .card .hint{
+    font-size: 12.5px;
+    color: var(--text-soft);
+    margin: 0 0 18px;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 18px;
+  }
+  .field{ display:flex; flex-direction:column; gap:6px; }
+  .field.full{ grid-column: 1 / -1; }
+  label{
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  label .req{ color: var(--terracotta); margin-left:2px; }
+  label .opt{ color: var(--text-soft); font-weight:400; font-size:11.5px; }
+
+  input[type=text], input[type=number], input[type=date], select, textarea{
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 14px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    width: 100%;
+    transition: border 0.15s ease, box-shadow 0.15s ease;
+  }
+  input:focus, select:focus, textarea:focus{
+    outline: none;
+    border-color: var(--rose);
+    box-shadow: 0 0 0 3px var(--rose-soft);
+  }
+  textarea{ resize: vertical; min-height: 64px; font-family: 'Noto Sans TC', sans-serif; }
+
+  .submit-row{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .btn{
+    border:none;
+    padding: 12px 26px;
+    border-radius: 999px;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor:pointer;
+    font-family: 'Noto Sans TC', sans-serif;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-primary{ background: var(--rose); color:#fff; box-shadow: var(--shadow); }
+  .btn-primary:hover{ transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+  .btn-ghost{ background: transparent; color: var(--text-soft); border:1px solid var(--border); }
+  .btn-ghost:hover{ background: var(--card-soft); }
+  .btn-small{ padding: 7px 16px; font-size: 12.5px; }
+
+  .toast{
+    position: fixed;
+    bottom: 26px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--sage);
+    color:#fff;
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-size: 13.5px;
+    font-weight:500;
+    box-shadow: var(--shadow-lg);
+    opacity:0;
+    pointer-events:none;
+    transition: all 0.3s ease;
+  }
+  .toast.show{ opacity:1; transform: translateX(-50%) translateY(0); }
+
+  /* Admin dashboard */
+  .toolbar{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+    align-items:center;
+  }
+  .toolbar select, .toolbar input[type=text]{
+    width:auto;
+    min-width: 120px;
+  }
+  .toolbar .spacer{ flex:1; }
+  .stat-row{
+    display:grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .stat{
+    background: var(--card);
+    border:1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    text-align:center;
+  }
+  .stat .num{ font-family:'Noto Serif TC',serif; font-size: 22px; font-weight:600; }
+  .stat .lbl{ font-size:11.5px; color:var(--text-soft); margin-top:2px; }
+
+  .req-card{
+    background: var(--card);
+    border:1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 14px;
+    overflow:hidden;
+  }
+  .req-head{
+    display:flex;
+    align-items:center;
+    gap: 12px;
+    padding: 16px 20px;
+    cursor:pointer;
+  }
+  .req-head:hover{ background: var(--card-soft); }
+  .req-head .name{ font-weight:600; font-size:14.5px; flex:1; }
+  .req-head .dept{ font-size:12px; color:var(--text-soft); }
+  .badge{
+    font-size: 11px;
+    font-weight:600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    white-space:nowrap;
+  }
+  .badge-general{ background:var(--sage-soft); color:#5C6E52; }
+  .badge-urgent{ background:var(--sand-soft); color:#8C6A2E; }
+  .badge-veryurgent{ background:var(--terracotta-soft); color:#9C5238; }
+  .badge-status{ background:var(--card-soft); color:var(--text-soft); border:1px solid var(--border);}
+  .req-body{
+    display:none;
+    padding: 4px 20px 20px;
+    border-top: 1px solid var(--border);
+  }
+  .req-body.open{ display:block; }
+  .detail-grid{
+    display:grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 10px 20px;
+    font-size: 13px;
+    margin: 14px 0;
+  }
+  .detail-grid .k{ color:var(--text-soft); font-size:11.5px; margin-bottom:2px;}
+  .detail-grid .v{ color:var(--text); }
+  .detail-grid .full{ grid-column:1/-1; }
+  .section-label{
+    font-size: 11.5px;
+    font-weight:600;
+    color: var(--rose);
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    margin: 16px 0 8px;
+  }
+
+  .empty{
+    text-align:center;
+    padding: 60px 20px;
+    color: var(--text-soft);
+  }
+  .empty .big{ font-size:34px; margin-bottom:10px; }
+
+  footer.foot{
+    text-align:center;
+    color: var(--text-soft);
+    font-size: 11.5px;
+    margin-top: 40px;
+  }
+
+  @media (max-width: 640px){
+    .grid, .detail-grid, .stat-row{ grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="eyebrow">YEONG YAW INTERNATIONAL CO., LTD.</div>
+    <h1>永耀國際｜贈品採購需求單</h1>
+    <div class="dept-line">Product Development Dept. · Gift &amp; Premium Sourcing Request</div>
+    <p>請完整填寫規格與數量，讓採購同事能快速尋找樣品、詢價</p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="form">📝 填寫需求</button>
+    <button class="tab-btn" data-tab="admin">🗂 採購後台</button>
+  </div>
+
+  <!-- ===================== FORM VIEW ===================== -->
+  <div class="view active" id="view-form">
+    <form id="requestForm">
+
+      <div class="card">
+        <h2><span class="dot"></span>一、申請基本資料</h2>
+        <p class="hint">誰提出、什麼時候要、有多急</p>
+        <div class="grid">
+          <div class="field">
+            <label>需求部門<span class="req">*</span></label>
+            <select name="dept" required>
+              <option value="">請選擇</option>
+              <option>行銷部</option><option>公關部</option><option>設計部</option>
+              <option>商品開發</option><option>DT STORE</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>聯絡窗口<span class="req">*</span></label>
+            <input type="text" name="contact" placeholder="姓名" required>
+          </div>
+          <div class="field">
+            <label>優先程度<span class="req">*</span></label>
+            <select name="priority" required>
+              <option value="">請選擇</option>
+              <option>一般（尚不確定使用檔期／距離交貨約6個月含以上）</option>
+              <option>急件（約4-5個月交貨）</option>
+              <option>非常急（需3個月內交貨，需先確認排程是否可配合）</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>希望完成日期<span class="req">*</span></label>
+            <input type="date" name="dueDate" required>
+          </div>
+          <div class="field full">
+            <label>需求用途<span class="req">*</span></label>
+            <input type="text" name="purpose" placeholder="例：雙十一檔期活動-AI吹風機贈品" required>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2><span class="dot"></span>二、品項需求內容</h2>
+        <p class="hint">材質、尺寸、顏色、包裝越完整，越有利於快速詢價</p>
+        <div class="grid">
+          <div class="field full">
+            <label>品項名稱<span class="req">*</span></label>
+            <input type="text" name="itemName" placeholder="例：雙色緹花毛巾" required>
+          </div>
+          <div class="field full">
+            <label>採購主要訴求 <span class="opt">（幫助採購拿捏詢價與挑選廠商的方向）</span></label>
+            <input type="text" name="procurementFocus" placeholder="例：以成本控制為優先／講究質感與精緻度／希望能提升顧客湊滿額贈的意願">
+          </div>
+          <div class="field full">
+            <label>需求說明／規格<span class="req">*</span></label>
+            <textarea name="spec" placeholder="功能、風格、印刷方式等完整說明" required></textarea>
+          </div>
+          <div class="field">
+            <label>材質／成分要求</label>
+            <input type="text" name="material" placeholder="例：100%純棉">
+          </div>
+          <div class="field">
+            <label>尺寸／容量要求</label>
+            <input type="text" name="size" placeholder="例：33*100公分">
+          </div>
+          <div class="field full">
+            <label>顏色／外觀要求 <span class="opt">（含配色邏輯，如一色可選一色固定）</span></label>
+            <input type="text" name="color" placeholder="例：希望能找到接近AI吹風機的兩款配色">
+          </div>
+          <div class="field full">
+            <label>參考圖片或連結</label>
+            <input type="text" name="refLink" placeholder="商品網址／雲端圖片連結">
+          </div>
+          <div class="field">
+            <label>需求數量<span class="req">*</span> <span class="opt">（可填多組級距）</span></label>
+            <input type="text" name="qty" placeholder="例：3000／5000條" required>
+          </div>
+          <div class="field">
+            <label>預算／目標單價</label>
+            <input type="text" name="budget" placeholder="例：100元/條">
+          </div>
+          <div class="field">
+            <label>包裝方式</label>
+            <input type="text" name="packaging" placeholder="例：PP袋">
+          </div>
+          <div class="field">
+            <label>是否需要客製加價項目</label>
+            <select name="customFee">
+              <option value="">請選擇</option>
+              <option>需要</option>
+              <option>不需要</option>
+              <option>不限定（可以客製化就問看看，若無法也沒關係）</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label>客製項目說明 <span class="opt">（客製加價需求選「不需要」可略過）</span></label>
+            <input type="text" name="customDetail" placeholder="例：於按鈕處雷雕LOGO、於毛巾正面右下角加縫LOGO布標等">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2><span class="dot"></span>三、其他條件</h2>
+        <div class="grid">
+          <div class="field">
+            <label>是否需要打樣</label>
+            <select name="needSample">
+              <option value="">請選擇</option>
+              <option>需要</option><option>不需要</option><option>待確認</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>打樣需求說明 <span class="opt">（想確認的重點）</span></label>
+            <input type="text" name="sampleNote" placeholder="例：想確認木槌雷雕LOGO後的呈現效果、想確認槌身上防水漆後的觸感與外觀等">
+          </div>
+          <div class="field full">
+            <label>其他特殊要求／備註</label>
+            <textarea name="notes" placeholder="例：如果找不到適合／質感夠好的品項，可以直接停止此項採購計畫，改洽詢其他贈品選項"></textarea>
+          </div>
+        </div>
+        <div class="submit-row">
+          <button type="button" class="btn btn-ghost" id="resetBtn">清空重填</button>
+          <button type="submit" class="btn btn-primary">送出需求</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- ===================== ADMIN VIEW ===================== -->
+  <div class="view" id="view-admin">
+
+    <div class="stat-row" id="statRow"></div>
+
+    <div class="toolbar">
+      <select id="filterDept"><option value="">全部部門</option></select>
+      <select id="filterStatus"><option value="">全部狀態</option></select>
+      <select id="filterPriority"><option value="">全部優先程度</option></select>
+      <div class="spacer"></div>
+      <button class="btn btn-ghost btn-small" id="exportBtn">匯出CSV</button>
+      <button class="btn btn-ghost btn-small" id="refreshBtn">重新整理</button>
+    </div>
+
+    <div id="reqList"></div>
+  </div>
+
+  <footer class="foot">永耀國際 YEONG YAW INTERNATIONAL · 贈品採購需求單</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STATUS_OPTIONS = ["待處理","尋找中","待確認需求","待廠商回覆","打樣中","樣品已到","採購中","已完成","取消"];
+function priorityBadgeClass(p){
+  if(!p) return 'badge-general';
+  if(p.startsWith('非常急')) return 'badge-veryurgent';
+  if(p.startsWith('急件')) return 'badge-urgent';
+  return 'badge-general';
+}
+function priorityShort(p){
+  if(!p) return '一般';
+  if(p.startsWith('非常急')) return '非常急';
+  if(p.startsWith('急件')) return '急件';
+  return '一般';
+}
+
+function uid(){ return 'REQ-' + Date.now().toString(36).toUpperCase() + '-' + Math.floor(Math.random()*900+100); }
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+// ---------- backend config ----------
+// 部署好 Google Apps Script Web App 後，把網址貼在這裡（結尾是 /exec）
+// 貼上網址後，表單就會改成寫進 Google 試算表＋寄信通知；留空則暫時用 Claude 內建儲存空間測試
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_sjVXuYE2WWjFirmPvyQ01VmuZ-TQrQPu97G9TcfwUZXTOywxTLnM_yPEzjDbdK7tmg/exec';
+
+// ---------- storage helpers ----------
+const STORE_KEY = 'gift_requests_v1';
+
+async function loadAll(){
+  if (SCRIPT_URL) {
+    try{
+      const res = await fetch(SCRIPT_URL + '?action=list');
+      return await res.json();
+    }catch(e){
+      console.error('fetch list error', e);
+      return [];
+    }
+  }
+  try{
+    const res = await window.storage.get(STORE_KEY, true);
+    if(!res) return [];
+    return JSON.parse(res.value);
+  }catch(e){
+    return [];
+  }
+}
+async function saveAll(list){
+  try{
+    await window.storage.set(STORE_KEY, JSON.stringify(list), true);
+    return true;
+  }catch(e){
+    console.error('storage error', e);
+    return false;
+  }
+}
+
+// 新增一筆需求
+async function submitNew(entry){
+  if (SCRIPT_URL) {
+    try{
+      const res = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain;charset=utf-8'}, // 用text/plain避免瀏覽器發送CORS預檢request
+        body: JSON.stringify({ action: 'create', data: entry })
+      });
+      const json = await res.json();
+      return !!json.success;
+    }catch(e){
+      console.error('submit new error', e);
+      return false;
+    }
+  }
+  const list = await loadAll();
+  list.unshift(entry);
+  return await saveAll(list);
+}
+
+// 更新單一需求的處理紀錄欄位
+async function submitUpdate(id, fields){
+  if (SCRIPT_URL) {
+    try{
+      const res = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain;charset=utf-8'},
+        body: JSON.stringify({ action: 'update', data: Object.assign({ id }, fields) })
+      });
+      const json = await res.json();
+      return !!json.success;
+    }catch(e){
+      console.error('submit update error', e);
+      return false;
+    }
+  }
+  const list = await loadAll();
+  const idx = list.findIndex(r=>r.id===id);
+  if(idx===-1) return false;
+  Object.assign(list[idx], fields);
+  return await saveAll(list);
+}
+
+// ---------- tabs ----------
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('view-' + btn.dataset.tab).classList.add('active');
+    if(btn.dataset.tab === 'admin') renderAdmin();
+  });
+});
+
+// ---------- form submit ----------
+const form = document.getElementById('requestForm');
+form.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const fd = new FormData(form);
+  const entry = {};
+  fd.forEach((v,k)=>entry[k]=v);
+  entry.id = uid();
+  entry.submittedAt = new Date().toISOString();
+  entry.status = "待處理";
+  // processing fields, filled later by procurement
+  entry.owner = ""; entry.vendor = ""; entry.sampleQty = ""; entry.sampleFee = "";
+  entry.sampleLead = ""; entry.bulkLead = ""; entry.confirmDeadline = "";
+  entry.quoteResult = ""; entry.finalQty = ""; entry.finalPrice = "";
+  entry.expectedArrival = ""; entry.actualArrival = ""; entry.poNumber = ""; entry.result = "";
+
+  const ok = await submitNew(entry);
+  if(ok){
+    showToast('已送出，謝謝填寫！');
+    form.reset();
+  }else{
+    showToast('送出失敗，請再試一次');
+  }
+});
+document.getElementById('resetBtn').addEventListener('click', ()=>form.reset());
+
+// ---------- admin dashboard ----------
+async function renderAdmin(){
+  const list = await loadAll();
+  renderStats(list);
+  populateFilters(list);
+  renderList(list);
+}
+
+function renderStats(list){
+  const total = list.length;
+  const pending = list.filter(r=>r.status==="待處理").length;
+  const inProgress = list.filter(r=>!["待處理","已完成","取消"].includes(r.status)).length;
+  const urgent = list.filter(r=>r.priority && (r.priority.startsWith("非常急") || r.priority.startsWith("急件"))).length;
+  const stats = [
+    {num: total, lbl:"全部需求"},
+    {num: pending, lbl:"待處理"},
+    {num: inProgress, lbl:"進行中"},
+    {num: urgent, lbl:"急件／非常急"},
+  ];
+  document.getElementById('statRow').innerHTML = stats.map(s=>
+    `<div class="stat"><div class="num">${s.num}</div><div class="lbl">${s.lbl}</div></div>`
+  ).join('');
+}
+
+function populateFilters(list){
+  const deptSel = document.getElementById('filterDept');
+  const statusSel = document.getElementById('filterStatus');
+  const prioSel = document.getElementById('filterPriority');
+  const depts = [...new Set(list.map(r=>r.dept).filter(Boolean))];
+  if(deptSel.dataset.filled !== '1'){
+    deptSel.innerHTML = '<option value="">全部部門</option>' + depts.map(d=>`<option value="${d}">${d}</option>`).join('');
+    statusSel.innerHTML = '<option value="">全部狀態</option>' + STATUS_OPTIONS.map(s=>`<option value="${s}">${s}</option>`).join('');
+    prioSel.innerHTML = '<option value="">全部優先程度</option>' + ["一般","急件","非常急"].map(s=>`<option value="${s}">${s}</option>`).join('');
+    deptSel.dataset.filled = '1';
+    [deptSel,statusSel,prioSel].forEach(el=>el.addEventListener('change', ()=>renderAdmin()));
+  }
+}
+
+function fieldRow(k,v){
+  return `<div><div class="k">${k}</div><div class="v">${v && v.trim() ? v : '—'}</div></div>`;
+}
+
+function renderList(list){
+  const deptFilter = document.getElementById('filterDept').value;
+  const statusFilter = document.getElementById('filterStatus').value;
+  const prioFilter = document.getElementById('filterPriority').value;
+
+  let filtered = list.filter(r=>
+    (!deptFilter || r.dept===deptFilter) &&
+    (!statusFilter || r.status===statusFilter) &&
+    (!prioFilter || (r.priority && r.priority.startsWith(prioFilter)))
+  );
+
+  const container = document.getElementById('reqList');
+  if(filtered.length === 0){
+    container.innerHTML = `<div class="empty"><div class="big">🗂</div>目前沒有符合條件的需求</div>`;
+    return;
+  }
+
+  container.innerHTML = filtered.map(r=>{
+    const badgeClass = priorityBadgeClass(r.priority);
+    return `
+    <div class="req-card" data-id="${r.id}">
+      <div class="req-head" onclick="toggleCard('${r.id}')">
+        <span class="badge ${badgeClass}">${priorityShort(r.priority)}</span>
+        <span class="name">${r.itemName || '（未命名品項）'}</span>
+        <span class="dept">${r.dept||''} · ${r.contact||''}</span>
+        <span class="badge badge-status">${r.status}</span>
+      </div>
+      <div class="req-body" id="body-${r.id}">
+        <div class="section-label">申請內容</div>
+        <div class="detail-grid">
+          ${fieldRow('需求編號', r.id)}
+          ${fieldRow('提出時間', new Date(r.submittedAt).toLocaleString('zh-TW'))}
+          ${fieldRow('優先程度', r.priority)}
+          ${fieldRow('需求用途', r.purpose)}
+          ${fieldRow('希望完成日期', r.dueDate)}
+          ${fieldRow('需求數量', r.qty)}
+          ${fieldRow('材質', r.material)}
+          ${fieldRow('尺寸', r.size)}
+          ${fieldRow('顏色／配色邏輯', r.color)}
+          ${fieldRow('包裝方式', r.packaging)}
+          ${fieldRow('預算／目標單價', r.budget)}
+          ${fieldRow('是否需要客製加價項目', r.customFee)}
+          ${fieldRow('是否需要打樣', r.needSample)}
+          <div class="full">${fieldRow('採購主要訴求', r.procurementFocus)}</div>
+          <div class="full">${fieldRow('需求說明／規格', r.spec)}</div>
+          <div class="full">${fieldRow('客製項目說明', r.customDetail)}</div>
+          <div class="full">${fieldRow('打樣需求說明', r.sampleNote)}</div>
+          <div class="full">${fieldRow('參考連結', r.refLink)}</div>
+          <div class="full">${fieldRow('備註', r.notes)}</div>
+        </div>
+
+        <div class="section-label">開發部處理紀錄（僅採購填寫）</div>
+        <div class="grid">
+          <div class="field">
+            <label>目前狀態</label>
+            <select data-field="status">${STATUS_OPTIONS.map(s=>`<option ${s===r.status?'selected':''}>${s}</option>`).join('')}</select>
+          </div>
+          <div class="field"><label>承辦人</label><input type="text" data-field="owner" value="${r.owner||''}"></div>
+          <div class="field"><label>廠商／採購來源</label><input type="text" data-field="vendor" value="${r.vendor||''}"></div>
+          <div class="field"><label>樣品數量</label><input type="text" data-field="sampleQty" value="${r.sampleQty||''}"></div>
+          <div class="field"><label>打樣金額</label><input type="text" data-field="sampleFee" value="${r.sampleFee||''}"></div>
+          <div class="field"><label>打樣工期（天）</label><input type="text" data-field="sampleLead" value="${r.sampleLead||''}"></div>
+          <div class="field"><label>大貨／量產工期（天）</label><input type="text" data-field="bulkLead" value="${r.bulkLead||''}"></div>
+          <div class="field"><label>最晚確樣日期</label><input type="text" data-field="confirmDeadline" value="${r.confirmDeadline||''}"></div>
+          <div class="field"><label>正式採購數量</label><input type="text" data-field="finalQty" value="${r.finalQty||''}"></div>
+          <div class="field"><label>正式單價</label><input type="text" data-field="finalPrice" value="${r.finalPrice||''}"></div>
+          <div class="field"><label>預計到貨日期</label><input type="text" data-field="expectedArrival" value="${r.expectedArrival||''}"></div>
+          <div class="field"><label>實際到貨日期</label><input type="text" data-field="actualArrival" value="${r.actualArrival||''}"></div>
+          <div class="field"><label>採購單號</label><input type="text" data-field="poNumber" value="${r.poNumber||''}"></div>
+          <div class="field full"><label>樣品結果／報價說明</label><textarea data-field="quoteResult">${r.quoteResult||''}</textarea></div>
+          <div class="field full"><label>處理結果</label><textarea data-field="result">${r.result||''}</textarea></div>
+        </div>
+        <div class="submit-row">
+          <button class="btn btn-primary btn-small" onclick="saveProcessing('${r.id}')">儲存處理紀錄</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleCard(id){
+  const body = document.getElementById('body-' + id);
+  body.classList.toggle('open');
+}
+
+async function saveProcessing(id){
+  const body = document.getElementById('body-' + id);
+  const fields = {};
+  body.querySelectorAll('[data-field]').forEach(el=>{
+    fields[el.dataset.field] = el.value;
+  });
+  const ok = await submitUpdate(id, fields);
+  showToast(ok ? '已儲存處理紀錄' : '儲存失敗，請再試一次');
+  renderAdmin();
+}
+
+document.getElementById('refreshBtn').addEventListener('click', renderAdmin);
+
+document.getElementById('exportBtn').addEventListener('click', async ()=>{
+  const list = await loadAll();
+  if(list.length===0){ showToast('目前沒有資料可匯出'); return; }
+  const cols = ["id","submittedAt","dept","contact","priority","purpose","dueDate",
+    "itemName","procurementFocus","spec","material","size","color","refLink","qty","budget",
+    "customFee","customDetail","packaging","needSample","sampleNote","notes","status","owner","vendor",
+    "sampleQty","sampleFee","sampleLead","bulkLead","confirmDeadline","quoteResult",
+    "finalQty","finalPrice","expectedArrival","actualArrival","poNumber","result"];
+  const escape = v => `"${(v||'').toString().replace(/"/g,'""')}"`;
+  const rows = [cols.join(',')].concat(list.map(r=>cols.map(c=>escape(r[c])).join(',')));
+  const csv = "\uFEFF" + rows.join('\n');
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = '贈品採購需求彙整.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+// initial load if admin tab somehow active first
+if(document.getElementById('view-admin').classList.contains('active')) renderAdmin();
+</script>
+</body>
+</html>
