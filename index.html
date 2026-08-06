@@ -342,7 +342,7 @@
             <select name="dept" required>
               <option value="">請選擇</option>
               <option>行銷部</option><option>公關部</option><option>設計部</option>
-              <option>商品開發</option><option>DT STORE</option>
+              <option>商品開發</option>
             </select>
           </div>
           <div class="field">
@@ -469,7 +469,7 @@ function showToast(msg){
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 2200);
+  setTimeout(()=>t.classList.remove('show'), 3500);
 }
 
 // ---------- backend config ----------
@@ -518,15 +518,16 @@ async function submitNew(entry){
         body: JSON.stringify({ action: 'create', data: entry })
       });
       const json = await res.json();
-      return !!json.success;
+      return json; // { success: true, id: 'REQ-...' }
     }catch(e){
       console.error('submit new error', e);
-      return false;
+      return { success: false };
     }
   }
   const list = await loadAll();
   list.unshift(entry);
-  return await saveAll(list);
+  const ok = await saveAll(list);
+  return { success: ok, id: entry.id };
 }
 
 // ---------- form submit ----------
@@ -536,7 +537,7 @@ form.addEventListener('submit', async (e)=>{
   const fd = new FormData(form);
   const entry = {};
   fd.forEach((v,k)=>entry[k]=v);
-  entry.id = uid();
+  entry.id = uid(); // 僅作為離線測試時的暫用編號，正式送出後會被伺服器端的編號取代
   entry.submittedAt = new Date().toISOString();
   entry.status = "待處理";
   // processing fields, filled later by procurement
@@ -545,9 +546,9 @@ form.addEventListener('submit', async (e)=>{
   entry.quoteResult = ""; entry.finalQty = ""; entry.finalPrice = "";
   entry.expectedArrival = ""; entry.actualArrival = ""; entry.poNumber = ""; entry.result = "";
 
-  const ok = await submitNew(entry);
-  if(ok){
-    showToast('已送出，謝謝填寫！');
+  const result = await submitNew(entry);
+  if(result && result.success){
+    showToast(result.id ? ('已送出！申請編號：' + result.id) : '已送出，謝謝填寫！');
     form.reset();
   }else{
     showToast('送出失敗，請再試一次');
